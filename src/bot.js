@@ -24,12 +24,16 @@ async function checkServerStatus() {
 }
 
 async function updateChannelName(newName) {
-  const guild = await client.guilds.fetch(GUILD_ID);
-  const channel = await guild.channels.fetch(CHANNEL_ID);
-
-  if (channel && channel.name !== newName) {
-    await channel.setName(newName);
-    console.log(`✅ Channel changed to: ${newName}`);
+  try {
+    const guild = await client.guilds.fetch(GUILD_ID);
+    const channel = await guild.channels.fetch(CHANNEL_ID);
+    
+    if (channel && channel.name !== newName) {
+      await channel.setName(newName);
+      console.log(`✅ Channel name updated to ${newName}`);
+    }
+  } catch (error) {
+    console.error("❌ Error updating channel name.");
   }
 }
 
